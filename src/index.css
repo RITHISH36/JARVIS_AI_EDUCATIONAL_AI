@@ -1,0 +1,196 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+}
+
+body {
+  background-color: black;
+}
+
+* {
+  padding: 0%;
+  margin: 0%;
+}
+
+/* HomePage-css */
+.HomePage-content-hdr {
+  display: flex;
+  gap: 25%;
+  background-color: black;
+  padding-bottom: 1%;
+  border-bottom: 1px solid #e0ffff;
+}
+
+.HomePage-nav-btn span {
+  padding-left: 10%;
+  padding-right: 5%;
+  font-size: 14px;
+  text-align: center;
+}
+
+.HomePage-nav-btn {
+  padding-top: 2%;
+  color: #e0ffff;
+  text-shadow:
+    0 0 7px #00d4ff,
+    0 0 10px #00d4ff,
+    0 0 21px #00d4ff,
+    0 0 42px #0081ff;
+  cursor: pointer;
+
+  animation: reactor-pulse 2s infinite alternate;
+}
+
+.HomePage-hdr {
+  padding-top: 1%;
+  margin-left: 20px;
+  color: #e0ffff;
+  text-shadow:
+    0 0 7px #00d4ff,
+    0 0 10px #00d4ff,
+    0 0 21px #00d4ff,
+    0 0 42px #0081ff;
+  cursor: pointer;
+  animation: reactor-pulse 2s infinite alternate;
+}
+
+.HomePage-nav-btn span:hover {
+  color: black;
+}
+
+/* about-cnt */
+.about-content {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-quotes h1 {
+  padding-left: 20%;
+  padding-top: 10%;
+  text-align: center;
+  color: #e0ffff;
+  width: 60%;
+  font-size: 64px;
+  font-family: "OpenAI Sans", sans-serif;
+  padding-bottom: 1%;
+  text-shadow:
+    0 0 7px #00d4ff,
+    0 0 10px #00d4ff,
+    0 0 21px #00d4ff,
+    0 0 42px #0081ff;
+  animation: reactor-light 2s infinite alternate;
+}
+
+.about-statement {
+  color: #e0ffff;
+  text-align: center;
+  font-size: 17px;
+  font-family: "OpenAI Sans", sans-serif;
+  font-weight: 400;
+
+  animation: reactor-light 1s infinite alternate;
+}
+
+@keyframes reactor-light {
+  from {
+    opacity: 1;
+    text-shadow:
+      0 0 7px #00d4ff,
+      0 0 10px #00d4ff,
+      0 0 21px #00d4ff,
+      0 0 42px #0081ff;
+  }
+
+  to {
+    opacity: 0.8;
+    text-shadow:
+      0 0 4px #00d4ff,
+      0 0 7px #00d4ff,
+      0 0 15px #0081ff,
+      0 0 30px #0051ff;
+  }
+
+}
+
+.start-button .btn {
+  height: 35px;
+  width: 10%;
+
+}
+
+.start-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1%;
+
+}
+
+.btn button {
+  background-color: black;
+  color: white;
+  height: 100%;
+  font-family: "OpenAI Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 20px;
+  width: 100%;
+
+}
+
+.btn button:hover {
+  box-shadow:
+    0 0 7px #00d4ff,
+    0 0 10px #00d4ff,
+    0 0 21px #00d4ff,
+    0 0 42px #0051ff;
+}
+
+.Learn-button .learn-btn {
+  height: 35px;
+  width: 10%;
+}
+
+.Learn-button {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2%;
+}
+
+.learn-btn button {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  color: white;
+  font-family: "OpenAI Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 20px;
+}
+
+.learn-btn button:hover {
+  box-shadow:
+    0 0 7px #00d4ff,
+    0 0 10px #00d4ff,
+    0 0 21px #00d4ff,
+    0 0 42px #0051ff;
+}
+.lottie{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.8;
+  padding-top: 25%;
+}
+.reactor-lottie{
+  filter: drop-shadow(0,0,40px cyan);
+}
