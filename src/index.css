@@ -180,7 +180,8 @@ body {
     0 0 21px #00d4ff,
     0 0 42px #0051ff;
 }
-.lottie{
+
+.lottie {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -191,6 +192,130 @@ body {
   opacity: 0.8;
   padding-top: 25%;
 }
-.reactor-lottie{
-  filter: drop-shadow(0,0,40px cyan);
+
+.reactor-lottie {
+  filter: drop-shadow(0, 0, 40px cyan);
+}
+
+/* ChatPage Css */
+.ChatPage {
+  width: 100%;
+  height: 100vh;
+}
+
+.ChatPage-option {
+  width: 3%;
+  height: 100vh;
+}
+
+.Option-Wapper {
+  width: 3%;
+  height: 100vh;
+  display: flex;
+  position: absolute;
+  width: 3%;
+  background-color: white;
+  overflow: hidden;
+}
+
+.window-button {
+  position: relative;
+  top: 2%;
+  left: 25%;
+}
+
+.NewPage-Button {
+  position: relative;
+  top: 10%;
+  right: 20%;
+}
+
+.Subcription-button img {
+  position: relative;
+  top: 85%;
+  right: 110%;
+}
+
+.ChatPage-Search {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.Search-button {
+  width: 60%;
+  padding-top: 10px;
+  padding-bottom: 4px;
+  padding-left: 50px;
+  padding-right: 10px;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.Search-button {
+  position: relative;
+}
+.Search-button.Search-button-down{
+  padding-bottom: 2%;
+}
+
+.Search-button textarea {
+  width: 98%;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  overflow-y: auto;
+  font-size: 16px;
+  resize: none;
+  outline: none;
+  font-family: "Google Sans Flex", "Google Sans", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.upload-btn {
+  position: absolute;
+  top: 30%;
+  left: 2%;
+}
+
+.default {
+  background-color: black;
+  width: 4%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  position: absolute;
+  top: 25%;
+  right: 5%;
+  border: none;
+}
+
+.arrow {
+  color: white;
+}
+
+.downposition {
+  position: absolute;
+  bottom: 2%;
+  right: 4%;
+  width: 4%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  background-color: black;
+  border: none;
 }

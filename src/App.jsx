@@ -1,10 +1,9 @@
-import HomePage from "./components/HomePage";
-import ReactLottie from "./components/lottie/ReactLottie";
-
+import ChatPage from "./components/ChatPage";
+import HomePage from "./components/HomePage"
 const App = () => {
   return (
     <>
-      <HomePage/>
+    <ChatPage/>
     </>)
 }
 export default App;
