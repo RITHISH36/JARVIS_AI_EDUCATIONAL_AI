@@ -205,6 +205,9 @@ body {
   overflow: hidden;
 }
 
+.Option-Wapper.Option-Open {
+  width: 200px;
+}
 
 .ChatPage-Option {
   width: 100%;
@@ -217,21 +220,46 @@ body {
   height: 100vh;
   display: flex;
   position: absolute;
-  width: 3%;
   background-color: white;
   overflow: hidden;
+  z-index: 1000;
+}
+
+.Option-Wapper.Option-Open .window-button {
+  left: auto;
+  right: 10px;
+}
+
+.Display {
+  display: inline;
+  padding-left: 5px;
+  font-family: "Google Sans Flex", "Google Sans", "Helvetica Neue", sans-serif;
+
+}
+
+.NotDisplay {
+  display: none;
 }
 
 .window-button {
   position: absolute;
   top: 2%;
-  left: 25%;
+  left: 35%;
+}
+
+.Option-Wapper.Option-Wapper.Option-Open .NewPage-Button {
+  left: 10px;
+  right: auto;
 }
 
 .NewPage-Button {
   position: absolute;
   top: 10%;
   right: 20%;
+}
+
+.Option-Wapper.Option-Open .Subcription-button img {
+  display: none;
 }
 
 .Subcription-button img {
@@ -247,7 +275,8 @@ body {
   padding: 15px 0;
   width: 100%;
 }
-.ChatPage-Search.centre{
+
+.ChatPage-Search.centre {
   position: absolute;
   top: 50%;
 }
@@ -343,4 +372,207 @@ body {
   color: white;
   word-break: break-word;
   margin-top: 10px;
+}
+
+.ChatPage-Output {
+  flex: 1;
+  padding: 20px;
+  padding-left: 70px;
+  display: flex;
+  justify-content: flex-end;
+}
+.Jarvis-res{
+  width: 100%;
+}
+.UserOutput {
+  background-color: #444;
+  border-radius: 8px;
+  padding: 10px 14px;
+  max-width: 45%;
+  color: white;
+  word-break: break-word;
+  margin-top: 10px;
+}
+
+.My-stuff,
+.Smart-view,
+.Insight-Scale,
+.Knowledge-Tree,
+.Daily-Sparks,
+.Insight-Board {
+  position: absolute;
+  font-family: "Google Sans Flex", "Google Sans", "Helvetica Neue", sans-serif;
+}
+
+.My-stuff {
+  top: 15%;
+  left: 9px;
+}
+
+.Smart-view {
+  top: 20%;
+  left: 10px;
+
+}
+
+.Insight-Scale {
+  top: 25%;
+  left: 10px;
+
+}
+
+.Knowledge-Tree {
+  top: 30%;
+  left: 10px;
+
+}
+
+.Daily-Sparks {
+  top: 35%;
+  left: 10px;
+
+}
+
+.Insight-Board {
+  top: 40%;
+  left: 10px;
+
+}
+
+.User-Profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  object-fit: cover;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.User-Account-Option {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 40px;
+  position: absolute;
+  bottom: 2%;
+  z-index: 1000;
+  margin-left: 5px;
+}
+
+.Claim-offer {
+  justify-content: center;
+  align-items: center;
+}
+
+.Claim-offer button {
+  border: none;
+  background-color: black;
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.Horizontal-Line {
+  width: 100%;
+  border: none;
+  bottom: 70px;
+  height: 1px;
+  position: absolute;
+  background: black;
+}
+
+.Settings-Option {
+  position: absolute;
+  bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
+  background-color: black;
+  width: 100%;
+  height: 250px;
+  border-radius: 20px;
+  z-index: 1000;
+
+}
+
+.Settings-Option li {
+  font-family: "Google Sans Flex", "Google Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  color: white;
+}
+
+.User-Name {
+  padding: 0;
+  margin-bottom: 20px;
+  padding-right: 40px;
+  padding-left: 10px;
+}
+
+.User-Settings {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding-right: 40px;
+  padding-left: 10px;
+}
+
+.User-Customization {
+  margin-top: 10px;
+  padding-right: 40px;
+  padding-left: 10px;
+}
+
+.Horizontal-Settings {
+  border: none;
+  background-color: white;
+  height: 1px;
+  width: 100%;
+}
+
+.Help-Centre {
+  margin-top: 10px;
+  padding-right: 40px;
+  padding-left: 10px;
+}
+
+.Log-out {
+  padding-right: 40px;
+  padding-left: 10px;
+}
+
+.Email {
+  font-size: 12px;
+  font-family: "Google Sans Flex", "Google Sans", "Helvetica Neue", sans-serif;
+}
+
+.Help-Centre:hover {
+  background-color: gray;
+  border-radius: 5px;
+}
+
+.User-Customization:hover {
+  background-color: gray;
+  border-radius: 5px;
+}
+
+.User-Settings:hover {
+  background-color: gray;
+  border-radius: 5px;
+}
+
+.User-Name:hover {
+  background-color: gray;
+  border-radius: 5px;
+}
+
+.Log-out:hover {
+  background-color: gray;
+  border-radius: 5px;
 }
