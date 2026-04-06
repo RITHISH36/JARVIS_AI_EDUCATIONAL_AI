@@ -84,7 +84,7 @@ const ChatPage = () => {
           formData.append("file", file);
         });
  textarearef.current.value = "";
-        const response = await fetch("http://localhost:3000/pdf", {
+        const response = await fetch("https://jarvis-ai-educational-backend.onrender.com/pdf", {
           method: "POST",
           credentials: "include",
           body: formData
@@ -93,7 +93,7 @@ const ChatPage = () => {
         const pdfResult = await response.json();
         JarvisResponse = pdfResult.response || pdfResult.message || "PDF uploaded successfully";
       } else {
-        const response = await fetch("http://localhost:3000/AiResponse", {
+        const response = await fetch("https://jarvis-ai-educational-backend.onrender.com/AiResponse", {
           method: "POST",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
