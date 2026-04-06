@@ -3,6 +3,7 @@ import { LuArrowUp, LuPanelLeft, LuPanelRight, LuPlus, LuSquarePen } from "react
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react";
 import { Icon } from "@iconify/react";
+import ReactMarkdown from "react-markdown"
 gsap.registerPlugin(useGSAP)
 const DUMMY_OUTPUT = []
 const ChatPage = () => {
@@ -17,6 +18,7 @@ const ChatPage = () => {
   const [SettingsOpen, setSettingsOpen] = useState(false);
   const [File, setFile] = useState([]);
   const [Preview, setPreview] = useState([]);
+  const [IsLoading, setIsLoading] = useState(false);
   const removefile = (index) => {
     setFile((prev) => prev.filter((_, i) => i !== index))
     setPreview((prev) => prev.filter((_, i) => i !== index))
@@ -57,6 +59,9 @@ const ChatPage = () => {
 
   const handleSubmit = async (el) => {
     el.preventDefault();
+    const data = textarearef.current.value.trim();
+    if (!data && File.length === 0) return;
+
     gsap.from(GsapInput.current, {
       opacity: 0,
       y: 25,
@@ -64,34 +69,52 @@ const ChatPage = () => {
       delay: 0.1,
       ease: "power2.out"
     });
-    const data = textarearef.current.value;
-    const formData = new FormData();
-    formData.append("UserInput", data);
-    File.forEach((file) => { formData.append("file", file) });
-    setUserInput((prev) => [...prev, { role: "user", output: data }])
-    console.log(UserInput)
-    const Respone = await fetch("http://localhost:3000/AiResponse", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ UserInput: data })
-
-    });
-    const FileInput = await fetch("http://localhost:3000/pdf", {
-      method: "POST",
-      credentials: "include",
-      body: formData
-    })
 
     try {
-      console.log(Respone)
-      const JarvisResponse = await Respone.json();
+      setIsLoading(true);
+      setUserInput((prev) => [...prev, { role: "user", output: data || "Uploaded PDF" }])
+
+      const pdfFiles = File.filter((file) => file.type === "application/pdf");
+      let JarvisResponse = "";
+
+      if (pdfFiles.length > 0) {
+        const formData = new FormData();
+        formData.append("UserInput", data);
+        pdfFiles.forEach((file) => {
+          formData.append("file", file);
+        });
+ textarearef.current.value = "";
+        const response = await fetch("http://localhost:3000/pdf", {
+          method: "POST",
+          credentials: "include",
+          body: formData
+        });
+
+        const pdfResult = await response.json();
+        JarvisResponse = pdfResult.response || pdfResult.message || "PDF uploaded successfully";
+      } else {
+        const response = await fetch("http://localhost:3000/AiResponse", {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ UserInput: data })
+        });
+
+        JarvisResponse = await response.json();
+      }
+
       setUserInput((prev) => [...prev, { role: "Gemini", output: JarvisResponse }])
     }
     catch (err) {
-      console.log("error in response message")
+      console.log("error in response message", err)
+      setUserInput((prev) => [...prev, { role: "Gemini", output: "Unable to process the request right now." }])
+    }
+    finally {
+      setIsLoading(false);
     }
     textarearef.current.value = "";
+    setFile([]);
+    setPreview([]);
     handleInput();
   }
 
@@ -194,7 +217,9 @@ const ChatPage = () => {
         <div className="ChatPage-Input" ref={GsapInput}>
           {UserInput.map((el, index) => {
             return el ? (
-              <p key={index} className={`Chat-Box ${el.role === "user" ? "UserInput" : "UserOutput"}`}>{el.output}</p>
+              <div key={index} className={`Chat-Box ${el.role === "user" ? "UserInput" : "UserOutput"}`}>
+                <ReactMarkdown>{el.output}</ReactMarkdown>
+                </div>
             ) : null
           })}
         </div>
@@ -202,12 +227,12 @@ const ChatPage = () => {
           <div className={`Search-button ${Expanded ? "Search-button-down" : ""}`}>
 
             <LuPlus size={25} className={Expanded ? "downside" : "upload-btn"} onClick={() => FileRef.current.click()} />
-            <input type="file" ref={FileRef} style={{ display: "none" }} onChange={handlefile} />
+            <input type="file" ref={FileRef} style={{ display: "none" }} onChange={handlefile} multiple accept=".pdf,image/*" />
             {Preview.length > 0 && (
               <div className="file-preview">
                 {Preview.map((file, index) => {
                   return (
-                    <div className="files">
+                    <div className="files" key={`${file.name}-${index}`}>
                       {file.type === "image" ? (<img src={file.url} alt="previewimage" />) : (<span>{file.name}</span>)}
                       <button className="file-cancle" onClick={() => removefile(index)}>X</button>
                     </div>
@@ -216,7 +241,7 @@ const ChatPage = () => {
               </div>
             )}
             <textarea className="input" ref={textarearef} onInput={handleInput}></textarea>
-            <button className={Expanded ? "downposition" : "default"} type="button" onClick={handleSubmit}>
+            <button className={Expanded ? "downposition" : "default"} type="button" onClick={handleSubmit} disabled={IsLoading}>
               <LuArrowUp size={25} className="arrow" />
             </button>
           </div>

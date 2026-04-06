@@ -374,6 +374,18 @@ body {
   word-break: break-word;
   margin-top: 10px;
 }
+.Chat-Box p{
+  margin: 0;
+}
+.Chat-Box ul,
+.Chat-Box ol{
+  padding-left: 20px;
+  margin: 8px 0 0;
+  list-style-position: inside;
+}
+.Chat-Box li{
+  margin-bottom: 4px;
+}
 .UserInput{
   background-color: #444;
   align-self: flex-start;
