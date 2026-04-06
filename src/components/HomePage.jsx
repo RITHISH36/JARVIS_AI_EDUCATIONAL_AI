@@ -3,6 +3,10 @@ import Header from "./Header";
 import ReactLottie from "./lottie/ReactLottie";
 
 const HomePage = () => {
+  const handlelogin =()=>{
+    console.log("hi")
+     window.location.href="http://localhost:3000/auth/google";
+  }
   return (<>
   <ReactLottie/>
     <div className="Home-Page">

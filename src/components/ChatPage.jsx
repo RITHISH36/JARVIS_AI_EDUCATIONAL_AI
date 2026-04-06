@@ -4,19 +4,47 @@ import gsap from "gsap"
 import { useGSAP } from "@gsap/react";
 import { Icon } from "@iconify/react";
 gsap.registerPlugin(useGSAP)
-const DUMMY_OUTPUT = [{
-  output: "this is a out from gemini."
-}]
+const DUMMY_OUTPUT = []
 const ChatPage = () => {
   const textarearef = useRef(null)
   const [Expanded, setExpanded] = useState(false)
-  const [UserInput, setUserInput] = useState([])
-  const [UserOutput, setUserOutput] = useState(DUMMY_OUTPUT)
+  const [UserInput, setUserInput] = useState(DUMMY_OUTPUT)
+  // const [UserOutput, setUserOutput] = useState(DUMMY_OUTPUT)
   const [OptionExpand, setOptionExpand] = useState(false)
   const GsapInput = useRef(null);
-  const Gsapchat = useRef(null)
+  const FileRef = useRef(null)
   const GsapOutput = useRef(null)
   const [SettingsOpen, setSettingsOpen] = useState(false);
+  const [File, setFile] = useState([]);
+  const [Preview, setPreview] = useState([]);
+  const removefile = (index) => {
+    setFile((prev) => prev.filter((_, i) => i !== index))
+    setPreview((prev) => prev.filter((_, i) => i !== index))
+  }
+  // handle file of user//
+  const handlefile = (e) => {
+    const file = Array.from(e.target.files);
+    setFile((prev) => [...prev, ...file])
+    const filePreview = file.map((file) => {
+      if (file.type.startsWith("image/")) {
+        return {
+          type: "image",
+          url: URL.createObjectURL(file),
+          name: file.name
+        }
+      }
+      else {
+        return {
+          type: "file",
+          name: file.name
+        }
+      }
+    })
+    setPreview((prev) => [...prev, ...filePreview])
+    e.target.value = null;
+  }
+
+
   const handleOption = () => {
     setOptionExpand(!OptionExpand)
   }
@@ -25,7 +53,9 @@ const ChatPage = () => {
     el.preventDefault();
     setSettingsOpen(!SettingsOpen);
   }
-  const handleSubmit = (el) => {
+
+
+  const handleSubmit = async (el) => {
     el.preventDefault();
     gsap.from(GsapInput.current, {
       opacity: 0,
@@ -34,18 +64,41 @@ const ChatPage = () => {
       delay: 0.1,
       ease: "power2.out"
     });
-    gsap.from(GsapOutput.current, {
-      y: 20,
-      duration: 0.4,
-      delay: 0.1,
-      ease: "power2.inOut"
-    })
     const data = textarearef.current.value;
-    setUserInput((prev) => [...prev, data])
+    const formData = new FormData();
+    formData.append("UserInput", data);
+    File.forEach((file) => { formData.append("file", file) });
+    setUserInput((prev) => [...prev, { role: "user", output: data }])
     console.log(UserInput)
+    const Respone = await fetch("http://localhost:3000/AiResponse", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ UserInput: data })
+
+    });
+    const FileInput = await fetch("http://localhost:3000/pdf", {
+      method: "POST",
+      credentials: "include",
+      body: formData
+    })
+
+    try {
+      console.log(Respone)
+      const JarvisResponse = await Respone.json();
+      setUserInput((prev) => [...prev, { role: "Gemini", output: JarvisResponse }])
+    }
+    catch (err) {
+      console.log("error in response message")
+    }
     textarearef.current.value = "";
     handleInput();
   }
+
+
+
+
+
 
   const handleInput = () => {
     const textarea = textarearef.current;
@@ -141,21 +194,27 @@ const ChatPage = () => {
         <div className="ChatPage-Input" ref={GsapInput}>
           {UserInput.map((el, index) => {
             return el ? (
-              <p key={index} className="UserInput">{el}</p>
+              <p key={index} className={`Chat-Box ${el.role === "user" ? "UserInput" : "UserOutput"}`}>{el.output}</p>
             ) : null
           })}
-          <div className="Jarvis-res">
-          <div className="ChatPage-Output" ref={GsapOutput}>
-            {UserOutput.map((el, index) => {
-              return <p className="UserOutput">{el.output}</p>
-            })}
-          </div>
         </div>
-        </div>
-        
         <div className={`ChatPage-Search ${UserInput.length === 0 ? "centre" : ""}`} >
           <div className={`Search-button ${Expanded ? "Search-button-down" : ""}`}>
-            <LuPlus size={25} className={Expanded ? "downside" : "upload-btn"} />
+
+            <LuPlus size={25} className={Expanded ? "downside" : "upload-btn"} onClick={() => FileRef.current.click()} />
+            <input type="file" ref={FileRef} style={{ display: "none" }} onChange={handlefile} />
+            {Preview.length > 0 && (
+              <div className="file-preview">
+                {Preview.map((file, index) => {
+                  return (
+                    <div className="files">
+                      {file.type === "image" ? (<img src={file.url} alt="previewimage" />) : (<span>{file.name}</span>)}
+                      <button className="file-cancle" onClick={() => removefile(index)}>X</button>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
             <textarea className="input" ref={textarearef} onInput={handleInput}></textarea>
             <button className={Expanded ? "downposition" : "default"} type="button" onClick={handleSubmit}>
               <LuArrowUp size={25} className="arrow" />
