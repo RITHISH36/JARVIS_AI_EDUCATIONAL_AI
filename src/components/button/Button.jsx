@@ -2,7 +2,7 @@ const Button = (props) => {
     const { text} = props;
     const handlelogin =()=>{
     console.log("hi")
-     window.location.href="http://localhost:3000/auth/google";
+     window.location.href="https://jarvis-ai-educational-backend.onrender.com/auth/google";
   }
     return (
         <>
