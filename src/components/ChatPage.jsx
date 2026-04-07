@@ -208,7 +208,7 @@ const ChatPage = () => {
           </>
           ) : null}
           <div className="Subcription-button">
-            <img src="src/assets/avatar.svg" alt="Subcription" width={30} height={30} />
+            <img src="/avatar.svg" alt="Subcription" width={30} height={30} />
           </div>
         </div>
       </div>
