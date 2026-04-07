@@ -1,5 +1,5 @@
 const Button = (props) => {
-    const { text} = props;
+    const { text,GetUserData} = props;
     const handlelogin =()=>{
     console.log("hi")
      window.location.href="https://jarvis-ai-educational-backend.onrender.com/auth/google";

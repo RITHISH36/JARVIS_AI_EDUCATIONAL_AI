@@ -501,7 +501,8 @@ body {
   height: 250px;
   border-radius: 20px;
   z-index: 1000;
-
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .Settings-Option li {

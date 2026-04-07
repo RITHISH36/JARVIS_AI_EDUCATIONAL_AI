@@ -1,9 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LuArrowUp, LuPanelLeft, LuPanelRight, LuPlus, LuSquarePen } from "react-icons/lu"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react";
 import { Icon } from "@iconify/react";
 import ReactMarkdown from "react-markdown"
+import Button from "./button/Button";
 gsap.registerPlugin(useGSAP)
 const DUMMY_OUTPUT = []
 const ChatPage = () => {
@@ -23,6 +24,28 @@ const ChatPage = () => {
     setFile((prev) => prev.filter((_, i) => i !== index))
     setPreview((prev) => prev.filter((_, i) => i !== index))
   }
+  const [UserDetails,setUserDetails]= useState([]);
+  const GetUserData = async()=>{
+    try{
+            const userData = await fetch("https://jarvis-ai-educational-backend.onrender.com/GetuserProfile",{
+              method:"GET",
+              credentials:"include",
+              headers:{"Content-Type":"application/json"}
+            })
+             const Data = await userData.json();
+            setUserDetails(Data);
+             console.log(Data)
+            
+          }
+          
+    catch(err){
+         console.log("user data not login",err)
+    }   
+  }
+  useEffect(()=>{
+    GetUserData();
+  },[])
+
   // handle file of user//
   const handlefile = (e) => {
     const file = Array.from(e.target.files);
@@ -189,7 +212,7 @@ const ChatPage = () => {
             <div className="User-Account-Option">
               {SettingsOpen ? (<div className="Settings-Option">
                 <ul style={{ listStyle: "none" }}>
-                  <li className="User-Name">Name<div className="Email">email</div></li>
+                  <li className="User-Name">{UserDetails[0].UserName}<div className="Email">{UserDetails[0].Email}</div></li>
                   <hr className="Horizontal-Settings" />
                   <li className="User-Customization">AI Control Panel</li>
                   <li className="User-Settings">Control Center</li>
@@ -199,7 +222,7 @@ const ChatPage = () => {
                 </ul>
               </div>) : null}
               <div className="User-Profile" onClick={handelSettings}>
-                <img src="src/assets/Dummy_profile.jpg" alt="User-Profile" />
+                <img src={UserDetails[0].Profile_pic} alt="User-Profile" />
               </div>
               <div className="Claim-offer">
                 <button>Claim Offers</button>
