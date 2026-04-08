@@ -246,7 +246,9 @@ body {
   top: 2%;
   left: 35%;
 }
-
+.window-button:hover{
+cursor: pointer;
+}
 .Option-Wapper.Option-Wapper.Option-Open .NewPage-Button {
   left: 10px;
   right: auto;
@@ -267,7 +269,9 @@ body {
   top: 85%;
   right: 10%;
 }
-
+.Subcription-button:hover{
+  cursor: pointer;
+}
 .ChatPage-Search {
   display: flex;
   align-items: center;
@@ -404,7 +408,14 @@ body {
   position: absolute;
   font-family: "Google Sans Flex", "Google Sans", "Helvetica Neue", sans-serif;
 }
-
+.My-stuff,
+.Smart-view,
+.Insight-Scale,
+.Knowledge-Tree,
+.Daily-Sparks,
+.Insight-Board:hover{
+  cursor: pointer;
+}
 .My-stuff {
   top: 15%;
   left: 9px;
@@ -590,4 +601,11 @@ body {
 .file-cancle{
   position: absolute;
   top: 10px;
+}
+.User-Name,
+.User-Customization,
+.User-Settings,
+.Help-Centre,
+.Log-out:hover{
+cursor: pointer;
 }
