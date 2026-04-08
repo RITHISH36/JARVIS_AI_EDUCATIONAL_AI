@@ -259,6 +259,9 @@ cursor: pointer;
   top: 10%;
   right: 20%;
 }
+.NewPage-Button:hover{
+cursor: pointer;
+}
 
 .Option-Wapper.Option-Open .Subcription-button img {
   display: none;
